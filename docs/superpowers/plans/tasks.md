@@ -14,10 +14,10 @@ A concise checklist with user stories in Given-When-Then format.
 - **Then** the app should render identically with CSS variables for theming
 
 **Acceptance Criteria:**
-- [ ] Create `src/styles/tokens.css` with CSS custom properties for light/dark themes
-- [ ] Create `src/styles/app.css` with component styles
-- [ ] Update `index.html` to load external CSS and JS modules
-- [ ] Verify static rendering works correctly
+- [x] Create `src/styles/tokens.css` with CSS custom properties for light/dark themes
+- [x] Create `src/styles/app.css` with component styles
+- [x] Update `index.html` to load external CSS and JS modules
+- [x] Verify static rendering works correctly
 
 ---
 
