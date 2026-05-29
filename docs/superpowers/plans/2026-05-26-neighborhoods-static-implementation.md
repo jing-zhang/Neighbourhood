@@ -155,7 +155,7 @@ Based on the current mock UI in `index.html`, implement these missing features:
 - Create: `src/styles/tokens.css`
 - Create: `src/styles/app.css`
 
-- [ ] **Step 1: Create CSS token file**
+- [x] **Step 1: Create CSS token file**
 
 Create `src/styles/tokens.css`:
 
@@ -220,11 +220,11 @@ Create `src/styles/tokens.css`:
 }
 ```
 
-- [ ] **Step 2: Move current inline CSS into `src/styles/app.css`**
+- [x] **Step 2: Move current inline CSS into `src/styles/app.css`**
 
 Copy the current inline `<style>` rules from `index.html` into `src/styles/app.css`, then remove the `<style>` block from `index.html`.
 
-- [ ] **Step 3: Link extracted stylesheets**
+- [x] **Step 3: Link extracted stylesheets**
 
 Add these lines in `index.html` after the Google Fonts `<link>` tags:
 
@@ -233,7 +233,7 @@ Add these lines in `index.html` after the Google Fonts `<link>` tags:
 <link rel="stylesheet" href="./src/styles/app.css">
 ```
 
-- [ ] **Step 4: Add module entrypoint**
+- [x] **Step 4: Add module entrypoint**
 
 Add this script before `</body>`:
 
@@ -241,13 +241,13 @@ Add this script before `</body>`:
 <script type="module" src="./src/main.js"></script>
 ```
 
-- [ ] **Step 5: Verify static rendering**
+- [x] **Step 5: Verify static rendering**
 
 Run: `Start-Process "file:///D:/SourceCode/playground/neighbour/index.html"`
 
 Expected: the existing app renders with the same layout, fonts, light theme, sidebar, feed, and map area visible.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add index.html src/styles/tokens.css src/styles/app.css
