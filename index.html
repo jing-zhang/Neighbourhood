@@ -54,7 +54,7 @@
       </nav>
 
       <!-- Theme Switcher & User Settings -->
-      <button class="btn-theme" id="themeToggler" title="Toggle Light/Dark Theme">
+      <button class="btn-theme" id="themeToggler" title="Toggle Light/Dark Theme" data-theme-toggle>
         <svg id="themeIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <!-- Sun Icon by default -->
           <circle cx="12" cy="12" r="4"></circle>
@@ -80,7 +80,7 @@
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
-          <input type="text" placeholder="Search neighborhood...">
+          <input type="text" placeholder="Search neighborhood..." data-search-input>
         </div>
         
         <div class="header-actions">
@@ -130,33 +130,10 @@
                   </svg>
                 </button>
               </div>
+              <div class="filter-row" data-filter-row></div>
             </div>
             
-            <div class="feed-cards">
-              <article class="post-card" id="post-1" data-marker-id="marker-1">
-                <h2 class="post-card-title">Farmers Market</h2>
-                <div class="pill-badge event">Events</div>
-                <div class="post-card-meta">
-                  <span>Oakwood Park</span><span>•</span><span>9:00 AM</span>
-                </div>
-              </article>
-
-              <article class="post-card" id="post-2" data-marker-id="marker-2">
-                <h2 class="post-card-title">Suspicious Activity</h2>
-                <div class="pill-badge safety">Safety</div>
-                <div class="post-card-meta">
-                  <span>Maple Ave</span><span>•</span><span>2 hours ago</span>
-                </div>
-              </article>
-
-              <article class="post-card" id="post-3" data-marker-id="marker-3">
-                <h2 class="post-card-title">Free Sofa</h2>
-                <div class="pill-badge sale">Free/Sale</div>
-                <div class="post-card-meta">
-                  <span>Pine Street</span><span>•</span><span>10:00 AM</span>
-                </div>
-              </article>
-            </div>
+            <section class="feed-list" data-feed-list aria-label="Neighborhood posts"></section>
           </div>
 
           <!-- 2. Explore & Directory View -->
@@ -306,136 +283,6 @@
     
   </div>
 
-  <!-- JavaScript Logic for Live Dynamic Interaction -->
-  <script>
-    // Theme toggling functionality
-    const themeToggler = document.getElementById('themeToggler');
-    const themeIcon = document.getElementById('themeIcon');
-    const root = document.documentElement;
-
-    themeToggler.addEventListener('click', () => {
-      const currentTheme = root.getAttribute('data-theme');
-      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-      root.setAttribute('data-theme', newTheme);
-      
-      // Update sun/moon icon dynamically
-      if (newTheme === 'dark') {
-        themeIcon.innerHTML = `
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-        `;
-      } else {
-        themeIcon.innerHTML = `
-          <circle cx="12" cy="12" r="4"></circle>
-          <path d="M12 2v2"></path>
-          <path d="M12 20v2"></path>
-          <path d="M4.93 4.93l1.41 1.41"></path>
-          <path d="M17.66 17.66l1.41 1.41"></path>
-          <path d="M2 12h2"></path>
-          <path d="M20 12h2"></path>
-          <path d="M6.34 17.66l-1.41 1.41"></path>
-          <path d="M19.07 4.93l-1.41 1.41"></path>
-        `;
-      }
-    });
-
-    // View Switching Logic for Left Panel
-    const sidebarNav = document.getElementById('sidebarNav');
-    const navItems = sidebarNav.querySelectorAll('.nav-item');
-    const panelViews = document.querySelectorAll('.panel-view');
-
-    navItems.forEach(item => {
-      item.addEventListener('click', () => {
-        // Deactivate active items
-        navItems.forEach(nav => nav.classList.remove('active'));
-        panelViews.forEach(view => view.classList.remove('active'));
-        
-        // Activate current item
-        item.classList.add('active');
-        const targetViewId = item.getAttribute('data-view');
-        document.getElementById(targetViewId).classList.add('active');
-      });
-    });
-
-    // Simulated Database for the dynamic tooltips
-    const postData = {
-      'post-1': { title: 'Local Farmers Market', meta: '9:00 AM - 1:00 PM • Oakwood Park' },
-      'post-2': { title: 'Suspicious Activity', meta: 'Reported 2h ago @ Maple Ave' },
-      'post-3': { title: 'Free Cozy Sofa', meta: 'Available now @ Pine Street' }
-    };
-
-    const feedCards = document.querySelectorAll('.post-card');
-    const mapPins = document.querySelectorAll('.map-pin-container');
-    const tooltip = document.getElementById('mapTooltip');
-    const tooltipTitle = document.getElementById('tooltipTitle');
-    const tooltipMeta = document.getElementById('tooltipMeta');
-
-    // 1. Hover Card -> Highlight Map Pin & Show Tooltip
-    feedCards.forEach(card => {
-      card.addEventListener('mouseenter', () => {
-        const markerId = card.getAttribute('data-marker-id');
-        const marker = document.getElementById(markerId);
-        
-        // Highlight marker
-        marker.classList.add('active');
-        
-        // Populate and position tooltip
-        const postId = card.getAttribute('id');
-        tooltipTitle.textContent = postData[postId].title;
-        tooltipMeta.textContent = postData[postId].meta;
-        
-        // Move tooltip above target marker
-        const pinLeft = parseInt(marker.style.left);
-        const pinTop = parseInt(marker.style.top);
-        
-        tooltip.style.left = `${pinLeft}px`;
-        tooltip.style.top = `${pinTop}px`;
-        tooltip.classList.add('visible');
-      });
-
-      card.addEventListener('mouseleave', () => {
-        const markerId = card.getAttribute('data-marker-id');
-        const marker = document.getElementById(markerId);
-        
-        marker.classList.remove('active');
-        tooltip.classList.remove('visible');
-      });
-    });
-
-    // 2. Hover Map Pin -> Highlight Feed Card & Show Tooltip
-    mapPins.forEach(pin => {
-      pin.addEventListener('mouseenter', () => {
-        const postId = pin.getAttribute('data-post-id');
-        const card = document.getElementById(postId);
-        
-        // Highlight feed card
-        card.classList.add('active-hover');
-        pin.classList.add('active');
-        
-        // Tooltip
-        tooltipTitle.textContent = postData[postId].title;
-        tooltipMeta.textContent = postData[postId].meta;
-        
-        const pinLeft = parseInt(pin.style.left);
-        const pinTop = parseInt(pin.style.top);
-        
-        tooltip.style.left = `${pinLeft}px`;
-        tooltip.style.top = `${pinTop}px`;
-        tooltip.classList.add('visible');
-        
-        // Scroll card smoothly into view inside the feed panel
-        card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      });
-
-      pin.addEventListener('mouseleave', () => {
-        const postId = pin.getAttribute('data-post-id');
-        const card = document.getElementById(postId);
-        
-        card.classList.remove('active-hover');
-        pin.classList.remove('active');
-        tooltip.classList.remove('visible');
-      });
-    });
-  </script>
 
   <script type="module" src="./src/main.js"></script>
 </body>
