@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neighborhoods - Hyper-Local Community Platform</title>
+  <!-- Modern Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ----------------------------------------------------
+       Design System & Variables (Dual Theme Glassmorphism)
+       ---------------------------------------------------- */
+    :root[data-theme="light"] {
+      --bg-main: radial-gradient(circle at 0% 0%, #f3f8fa 0%, #eef5f8 100%);
+      --sidebar-bg: rgba(255, 255, 255, 0.45);
+      --glass-bg: rgba(255, 255, 255, 0.45);
+      --glass-border: rgba(255, 255, 255, 0.6);
+      --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+      --inner-shadow: inset 0 2px 4px 0 rgba(255, 255, 255, 0.4);
+      --backdrop-blur: blur(16px);
+      
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --input-bg: rgba(255, 255, 255, 0.6);
+      --input-border: rgba(255, 255, 255, 0.8);
+      
+      --primary-teal: #00b29a;
+      --primary-teal-glow: rgba(0, 178, 154, 0.2);
+      
+      /* Category Colors & Glows */
+      --color-event: #a855f7;
+      --glow-event: rgba(168, 85, 247, 0.25);
+      --color-safety: #ef4444;
+      --glow-safety: rgba(239, 68, 68, 0.25);
+      --color-sale: #f59e0b;
+      --glow-sale: rgba(245, 158, 11, 0.25);
+      --color-general: #0ea5e9;
+      --glow-general: rgba(14, 165, 233, 0.25);
+      
+      /* Map Custom Styles */
+      --map-water: #e0f2fe;
+      --map-land: #f1f5f9;
+      --map-road: #ffffff;
+      --map-park: #dcfce7;
+      --map-border: #cbd5e1;
+    }
+
+    :root[data-theme="dark"] {
+      --bg-main: radial-gradient(circle at 0% 0%, #0b0f19 0%, #030712 100%);
+      --sidebar-bg: rgba(15, 23, 42, 0.4);
+      --glass-bg: rgba(15, 23, 42, 0.45);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+      --inner-shadow: inset 0 2px 4px 0 rgba(255, 255, 255, 0.05);
+      --backdrop-blur: blur(20px);
+      
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --input-bg: rgba(15, 23, 42, 0.7);
+      --input-border: rgba(255, 255, 255, 0.05);
+      
+      --primary-teal: #00e5c6;
+      --primary-teal-glow: rgba(0, 229, 198, 0.3);
+      
+      /* Category Colors & Glows */
+      --color-event: #c084fc;
+      --glow-event: rgba(192, 132, 252, 0.4);
+      --color-safety: #f87171;
+      --glow-safety: rgba(248, 113, 113, 0.4);
+      --color-sale: #fbbf24;
+      --glow-sale: rgba(251, 191, 36, 0.4);
+      --color-general: #38bdf8;
+      --glow-general: rgba(56, 189, 248, 0.4);
+      
+      /* Map Custom Styles */
+      --map-water: #0c1c30;
+      --map-land: #0b0f17;
+      --map-road: #1e293b;
+      --map-park: #062f1d;
+      --map-border: #1e293b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-family);
+      transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+    }
+
+    body {
+      background: var(--bg-main);
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    /* ----------------------------------------------------
+       App Container Layout
+       ---------------------------------------------------- */
+    .app-window {
+      width: 100%;
+      max-width: 1200px;
+      height: 90vh;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      box-shadow: var(--glass-shadow);
+      backdrop-filter: var(--backdrop-blur);
+      -webkit-backdrop-filter: var(--backdrop-blur);
+      display: flex;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* ----------------------------------------------------
+       Sidebar Panel
+       ---------------------------------------------------- */
+    .sidebar {
+      width: 80px;
+      border-right: 1px solid var(--glass-border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 0;
+      gap: 35px;
+      background: var(--sidebar-bg);
+    }
+
+    .brand-logo {
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--primary-teal) 0%, #10b981 100%);
+      border-radius: 12px;
+      color: white;
+      box-shadow: 0 4px 14px var(--primary-teal-glow);
+      cursor: pointer;
+    }
+
+    .nav-items {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      flex-grow: 1;
+    }
+
+    .nav-item {
+      width: 46px;
+      height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: transparent;
+      border: 1px solid transparent;
+    }
+
+    .nav-item:hover, .nav-item.active {
+      color: var(--primary-teal);
+      background: var(--glass-bg);
+      box-shadow: var(--glass-shadow);
+      border: 1px solid var(--glass-border);
+    }
+
+    /* ----------------------------------------------------
+       Main Content Block (Header + Split View)
+       ---------------------------------------------------- */
+    .main-wrapper {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    /* Global Header */
+    .app-header {
+      height: 70px;
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 30px;
+    }
+
+    .global-search {
+      display: flex;
+      align-items: center;
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      border-radius: 12px;
+      padding: 8px 16px;
+      width: 320px;
+      gap: 10px;
+    }
+
+    .global-search input {
+      border: none;
+      background: transparent;
+      outline: none;
+      color: var(--text-main);
+      font-size: 14px;
+      width: 100%;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .btn-post {
+      background: var(--primary-teal);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 18px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px var(--primary-teal-glow);
+      transition: all 0.3s ease;
+    }
+
+    .btn-post:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px var(--primary-teal-glow);
+    }
+
+    .avatar-wrapper {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+      cursor: pointer;
+    }
+
+    .avatar-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ----------------------------------------------------
+       Split Panel Layout
+       ---------------------------------------------------- */
+    .split-canvas {
+      display: flex;
+      flex-grow: 1;
+      height: calc(100% - 70px);
+      position: relative;
+    }
+
+    /* Left panel: Feed views */
+    .feed-panel {
+      width: 45%;
+      border-right: 1px solid var(--glass-border);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .feed-header {
+      padding: 24px 24px 16px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feed-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .feed-search-row {
+      display: flex;
+      gap: 12px;
+    }
+
+    .feed-search {
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      border-radius: 12px;
+      padding: 10px 14px;
+      gap: 10px;
+    }
+
+    .feed-search input {
+      border: none;
+      background: transparent;
+      outline: none;
+      color: var(--text-main);
+      font-size: 14px;
+      width: 100%;
+    }
+
+    .btn-filter {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    .btn-filter:hover {
+      color: var(--primary-teal);
+      border-color: var(--primary-teal);
+    }
+
+    /* Feed Card Container */
+    .feed-cards {
+      flex-grow: 1;
+      overflow-y: auto;
+      padding: 0 24px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Scrollbar style */
+    .feed-cards::-webkit-scrollbar {
+      width: 6px;
+    }
+    .feed-cards::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .feed-cards::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.05);
+      border-radius: 10px;
+    }
+    [data-theme="dark"] .feed-cards::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    /* View Swapper Transitions */
+    .panel-view {
+      display: none;
+      flex-direction: column;
+      height: 100%;
+      overflow: hidden;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .panel-view.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Premium Post Cards */
+    .post-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: var(--glass-shadow);
+      cursor: pointer;
+      transform: translateY(0);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .post-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 24px rgba(31, 38, 135, 0.08);
+      border-color: var(--primary-teal);
+    }
+
+    .post-card.active-hover {
+      border-color: var(--primary-teal);
+      box-shadow: 0 12px 24px rgba(31, 38, 135, 0.12);
+    }
+
+    .post-card-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 12px;
+    }
+
+    .post-card-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Frosted Pill Badges */
+    .pill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+    }
+
+    .pill-badge.event {
+      color: var(--color-event);
+      border-color: var(--color-event);
+      box-shadow: 0 0 12px var(--glow-event);
+    }
+
+    .pill-badge.safety {
+      color: var(--color-safety);
+      border-color: var(--color-safety);
+      box-shadow: 0 0 12px var(--glow-safety);
+    }
+
+    .pill-badge.sale {
+      color: var(--color-sale);
+      border-color: var(--color-sale);
+      box-shadow: 0 0 12px var(--glow-sale);
+    }
+
+    /* ----------------------------------------------------
+       Explore & Search Tab Styles
+       ---------------------------------------------------- */
+    .directory-section {
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .topic-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .topic-pill {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      padding: 10px 16px;
+      border-radius: 16px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .topic-pill:hover {
+      border-color: var(--primary-teal);
+      transform: translateY(-1px);
+    }
+
+    /* ----------------------------------------------------
+       Notifications View Styles
+       ---------------------------------------------------- */
+    .notif-item {
+      display: flex;
+      gap: 16px;
+      padding: 16px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      align-items: start;
+      cursor: pointer;
+      box-shadow: var(--glass-shadow);
+      transition: all 0.3s ease;
+    }
+
+    .notif-item:hover {
+      border-color: var(--primary-teal);
+      transform: translateY(-1px);
+    }
+
+    .notif-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-top: 5px;
+      flex-shrink: 0;
+    }
+
+    .notif-dot.red { background: var(--color-safety); box-shadow: 0 0 10px var(--glow-safety); }
+    .notif-dot.purple { background: var(--color-event); box-shadow: 0 0 10px var(--glow-event); }
+    .notif-dot.blue { background: var(--color-general); box-shadow: 0 0 10px var(--glow-general); }
+
+    .notif-content {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .notif-text {
+      font-size: 14px;
+      color: var(--text-main);
+      line-height: 1.4;
+    }
+
+    .notif-time {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* ----------------------------------------------------
+       Messages View Styles
+       ---------------------------------------------------- */
+    .chat-item {
+      display: flex;
+      gap: 16px;
+      padding: 16px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: var(--glass-shadow);
+    }
+
+    .chat-item:hover {
+      border-color: var(--primary-teal);
+      transform: translateY(-1px);
+    }
+
+    .chat-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid var(--glass-border);
+    }
+
+    .chat-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .chat-details {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .chat-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .chat-preview {
+      font-size: 13px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 220px;
+    }
+
+    /* ----------------------------------------------------
+       Right panel: Simulated Map
+       ---------------------------------------------------- */
+    .map-panel {
+      width: 55%;
+      height: 100%;
+      position: relative;
+      background: var(--map-land);
+      overflow: hidden;
+    }
+
+    /* Interactive Map SVG Wrapper */
+    .map-svg-canvas {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      user-select: none;
+    }
+
+    /* Map Elements SVG styling */
+    .map-water-body {
+      fill: var(--map-water);
+    }
+    .map-landmass {
+      fill: var(--map-land);
+    }
+    .map-road-network {
+      stroke: var(--map-road);
+      stroke-width: 3.5px;
+      fill: none;
+      stroke-linecap: round;
+    }
+    .map-highway {
+      stroke: var(--primary-teal-glow);
+      stroke-width: 6px;
+      fill: none;
+      stroke-opacity: 0.5;
+    }
+    .map-park-area {
+      fill: var(--map-park);
+    }
+    .map-text {
+      font-size: 11px;
+      font-weight: 600;
+      fill: var(--text-muted);
+      letter-spacing: 0.5px;
+      pointer-events: none;
+    }
+
+    /* ----------------------------------------------------
+       Simulated Interactive Map Pins
+       ---------------------------------------------------- */
+    .map-pin-container {
+      position: absolute;
+      cursor: pointer;
+      transform: translate(-50%, -100%);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    /* Hover aura / pulse concentric ripples */
+    .pin-pulse-aura {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: transparent;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+    }
+
+    /* Neon Pulse Keyframes */
+    @keyframes pinPulse {
+      0% {
+        transform: translate(-50%, -50%) scale(0.6);
+        opacity: 1;
+        box-shadow: 0 0 0 0 rgba(0, 178, 154, 0.5);
+      }
+      70% {
+        transform: translate(-50%, -50%) scale(1.3);
+        opacity: 0.3;
+        box-shadow: 0 0 0 15px rgba(0, 178, 154, 0);
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(1.6);
+        opacity: 0;
+        box-shadow: 0 0 0 0 rgba(0, 178, 154, 0);
+      }
+    }
+
+    /* Hover Active States for markers */
+    .map-pin-container.active {
+      transform: translate(-50%, -100%) scale(1.28);
+      z-index: 100;
+    }
+
+    .map-pin-container.active .pin-pulse-aura {
+      opacity: 1;
+      animation: pinPulse 2s infinite ease-out;
+    }
+
+    /* Pin SVGs */
+    .pin-svg {
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.12));
+    }
+    
+    .pin-event { fill: var(--color-event); }
+    .pin-safety { fill: var(--color-safety); }
+    .pin-sale { fill: var(--color-sale); }
+    .pin-general { fill: var(--color-general); }
+
+    /* Map Floating Tooltip card */
+    .map-tooltip {
+      position: absolute;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 12px 16px;
+      box-shadow: 0 8px 24px rgba(31, 38, 135, 0.08);
+      backdrop-filter: blur(12px);
+      width: 190px;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transform: translate(-50%, -130%) scale(0.9);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      pointer-events: none;
+    }
+
+    .map-tooltip.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -130%) scale(1);
+    }
+
+    .tooltip-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    .tooltip-meta {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* ----------------------------------------------------
+       Theme toggle style
+       ---------------------------------------------------- */
+    .btn-theme {
+      margin-top: 15px;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-theme:hover {
+      color: var(--primary-teal);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-window">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="brand-logo" title="Neighborhoods">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+          <path d="M2 12h20"></path>
+        </svg>
+      </div>
+      
+      <nav class="nav-items" id="sidebarNav">
+        <div class="nav-item active" data-view="view-feed" title="Community Feed">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+        </div>
+        <div class="nav-item" data-view="view-explore" title="Explore & Directory">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </div>
+        <div class="nav-item" data-view="view-notif" title="Notifications & Alerts">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+          </svg>
+        </div>
+        <div class="nav-item" data-view="view-messages" title="Direct Chats">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+          </svg>
+        </div>
+      </nav>
+
+      <!-- Theme Switcher & User Settings -->
+      <button class="btn-theme" id="themeToggler" title="Toggle Light/Dark Theme">
+        <svg id="themeIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <!-- Sun Icon by default -->
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2"></path>
+          <path d="M12 20v2"></path>
+          <path d="M4.93 4.93l1.41 1.41"></path>
+          <path d="M17.66 17.66l1.41 1.41"></path>
+          <path d="M2 12h2"></path>
+          <path d="M20 12h2"></path>
+          <path d="M6.34 17.66l-1.41 1.41"></path>
+          <path d="M19.07 4.93l-1.41 1.41"></path>
+        </svg>
+      </button>
+    </aside>
+
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+      
+      <!-- Top Application Header -->
+      <header class="app-header">
+        <div class="global-search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" placeholder="Search neighborhood...">
+        </div>
+        
+        <div class="header-actions">
+          <button class="btn-post">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+              <path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+            </svg>
+            Post
+          </button>
+          
+          <div class="avatar-wrapper">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&q=80" alt="User Profile">
+          </div>
+        </div>
+      </header>
+
+      <!-- Grid view split panels -->
+      <div class="split-canvas">
+        
+        <!-- Left Side Pane Container supporting multiple tab contents -->
+        <main class="feed-panel" id="leftPanel">
+
+          <!-- 1. Community Feed View -->
+          <div class="panel-view active" id="view-feed">
+            <div class="feed-header">
+              <h1 class="feed-title">Community Feed</h1>
+              <div class="feed-search-row">
+                <div class="feed-search">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg>
+                  <input type="text" placeholder="Search posts, events, alerts...">
+                </div>
+                <button class="btn-filter" title="Filter Feed">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="4" y1="21" x2="4" y2="14"></line>
+                    <line x1="4" y1="10" x2="4" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12" y2="3"></line>
+                    <line x1="20" y1="21" x2="20" y2="16"></line>
+                    <line x1="20" y1="12" x2="20" y2="3"></line>
+                    <line x1="1" y1="14" x2="7" y2="14"></line>
+                    <line x1="9" y1="8" x2="15" y2="8"></line>
+                    <line x1="17" y1="16" x2="23" y2="16"></line>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            
+            <div class="feed-cards">
+              <article class="post-card" id="post-1" data-marker-id="marker-1">
+                <h2 class="post-card-title">Farmers Market</h2>
+                <div class="pill-badge event">Events</div>
+                <div class="post-card-meta">
+                  <span>Oakwood Park</span><span>•</span><span>9:00 AM</span>
+                </div>
+              </article>
+
+              <article class="post-card" id="post-2" data-marker-id="marker-2">
+                <h2 class="post-card-title">Suspicious Activity</h2>
+                <div class="pill-badge safety">Safety</div>
+                <div class="post-card-meta">
+                  <span>Maple Ave</span><span>•</span><span>2 hours ago</span>
+                </div>
+              </article>
+
+              <article class="post-card" id="post-3" data-marker-id="marker-3">
+                <h2 class="post-card-title">Free Sofa</h2>
+                <div class="pill-badge sale">Free/Sale</div>
+                <div class="post-card-meta">
+                  <span>Pine Street</span><span>•</span><span>10:00 AM</span>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <!-- 2. Explore & Directory View -->
+          <div class="panel-view" id="view-explore">
+            <div class="feed-header">
+              <h1 class="feed-title">Explore Local</h1>
+              <p style="font-size: 13px; color: var(--text-muted);">Discover what is trending in your immediate area.</p>
+            </div>
+            <div class="feed-cards">
+              <div class="directory-section">
+                <h3 class="section-title">Trending Topics</h3>
+                <div class="topic-pills">
+                  <div class="topic-pill">✨ #FarmersMarket</div>
+                  <div class="topic-pill">🍔 #BlockParty</div>
+                  <div class="topic-pill">🐶 #LostPug</div>
+                  <div class="topic-pill">🚲 #GarageSale</div>
+                </div>
+              </div>
+              <div class="directory-section">
+                <h3 class="section-title">Verified Nearby Places</h3>
+                <div class="chat-item">
+                  <div class="chat-avatar" style="background: var(--primary-teal-glow); display: flex; align-items: center; justify-content: center; color: var(--primary-teal);">☕</div>
+                  <div class="chat-details">
+                    <div class="chat-name">Oakwood Cafe</div>
+                    <div class="chat-preview">15% off for verified neighbors today</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Notifications & Alerts View -->
+          <div class="panel-view" id="view-notif">
+            <div class="feed-header">
+              <h1 class="feed-title">Notifications</h1>
+            </div>
+            <div class="feed-cards">
+              <div class="notif-item">
+                <div class="notif-dot red"></div>
+                <div class="notif-content">
+                  <div class="notif-text"><strong>Safety Alert:</strong> Suspicious activity reported near Maple Ave.</div>
+                  <div class="notif-time">2 hours ago</div>
+                </div>
+              </div>
+              <div class="notif-item">
+                <div class="notif-dot purple"></div>
+                <div class="notif-content">
+                  <div class="notif-text"><strong>New Event:</strong> "Farmers Market" starts in Oakwood Park tomorrow morning.</div>
+                  <div class="notif-time">5 hours ago</div>
+                </div>
+              </div>
+              <div class="notif-item">
+                <div class="notif-dot blue"></div>
+                <div class="notif-content">
+                  <div class="notif-text"><strong>John Doe</strong> liked your post "Free Sofa".</div>
+                  <div class="notif-time">1 day ago</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Messages / Direct Chat View -->
+          <div class="panel-view" id="view-messages">
+            <div class="feed-header">
+              <h1 class="feed-title">Direct Messages</h1>
+            </div>
+            <div class="feed-cards">
+              <div class="chat-item">
+                <div class="chat-avatar">
+                  <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=80&q=80" alt="John">
+                </div>
+                <div class="chat-details">
+                  <div class="chat-name">John Doe</div>
+                  <div class="chat-preview">Is the Free Sofa still available? I can pick it up today.</div>
+                </div>
+              </div>
+              <div class="chat-item">
+                <div class="chat-avatar">
+                  <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=80&q=80" alt="Sarah">
+                </div>
+                <div class="chat-details">
+                  <div class="chat-name">Sarah Jenkins</div>
+                  <div class="chat-preview">Thanks for organizing the community cleanup last weekend!</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </main>
+
+        <!-- Right Side Simulated Interactive Google Map -->
+        <section class="map-panel" id="mapPanel">
+          
+          <svg class="map-svg-canvas" viewBox="0 0 600 500">
+            <!-- Simulated Map Landmasses and features -->
+            <rect class="map-landmass" width="600" height="500"></rect>
+            
+            <!-- Parks -->
+            <rect class="map-park-area" x="220" y="160" width="150" height="120" rx="8"></rect>
+            
+            <!-- Water Body -->
+            <path class="map-water-body" d="M 0,420 Q 150,440 280,390 T 600,430 L 600,500 L 0,500 Z"></path>
+            
+            <!-- Standard Roads Grid -->
+            <path class="map-road-network" d="M 50,0 L 50,500 M 150,0 L 150,500 M 420,0 L 420,500 M 520,0 L 520,500"></path>
+            <path class="map-road-network" d="M 0,80 L 600,80 M 0,220 L 600,220 M 0,340 L 600,340 M 0,420 L 600,420"></path>
+            <path class="map-highway" d="M 0,380 C 200,320 400,360 600,300"></path>
+            
+            <!-- Neighborhood Labels -->
+            <text class="map-text" x="40" y="60">FORTIS</text>
+            <text class="map-text" x="260" y="225">Oakwood Park</text>
+            <text class="map-text" x="460" y="320">HARKWOOD</text>
+          </svg>
+
+          <!-- Floating Interactive Map Pins matching cards -->
+          <div class="map-pin-container" id="marker-1" data-post-id="post-1" style="left: 310px; top: 220px;">
+            <div class="pin-pulse-aura" style="box-shadow: 0 0 0 0 var(--glow-event);"></div>
+            <svg class="pin-svg pin-event" width="30" height="42" viewBox="0 0 30 42">
+              <path d="M15 0C6.7 0 0 6.7 0 15c0 11.2 15 27 15 27s15-15.8 15-27C30 6.7 23.3 0 15 0zm0 21c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"/>
+            </svg>
+          </div>
+
+          <div class="map-pin-container" id="marker-2" data-post-id="post-2" style="left: 120px; top: 290px;">
+            <div class="pin-pulse-aura" style="box-shadow: 0 0 0 0 var(--glow-safety);"></div>
+            <svg class="pin-svg pin-safety" width="30" height="42" viewBox="0 0 30 42">
+              <path d="M15 0C6.7 0 0 6.7 0 15c0 11.2 15 27 15 27s15-15.8 15-27C30 6.7 23.3 0 15 0zm0 21c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"/>
+            </svg>
+          </div>
+
+          <div class="map-pin-container" id="marker-3" data-post-id="post-3" style="left: 480px; top: 120px;">
+            <div class="pin-pulse-aura" style="box-shadow: 0 0 0 0 var(--glow-sale);"></div>
+            <svg class="pin-svg pin-sale" width="30" height="42" viewBox="0 0 30 42">
+              <path d="M15 0C6.7 0 0 6.7 0 15c0 11.2 15 27 15 27s15-15.8 15-27C30 6.7 23.3 0 15 0zm0 21c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"/>
+            </svg>
+          </div>
+
+          <!-- Floating Tooltip popup -->
+          <div class="map-tooltip" id="mapTooltip">
+            <h3 class="tooltip-title" id="tooltipTitle">Farmers Market</h3>
+            <p class="tooltip-meta" id="tooltipMeta">9:00 AM @ Oakwood Park</p>
+          </div>
+
+        </section>
+        
+      </div>
+    </div>
+    
+  </div>
+
+  <!-- JavaScript Logic for Live Dynamic Interaction -->
+  <script>
+    // Theme toggling functionality
+    const themeToggler = document.getElementById('themeToggler');
+    const themeIcon = document.getElementById('themeIcon');
+    const root = document.documentElement;
+
+    themeToggler.addEventListener('click', () => {
+      const currentTheme = root.getAttribute('data-theme');
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      root.setAttribute('data-theme', newTheme);
+      
+      // Update sun/moon icon dynamically
+      if (newTheme === 'dark') {
+        themeIcon.innerHTML = `
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        `;
+      } else {
+        themeIcon.innerHTML = `
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2"></path>
+          <path d="M12 20v2"></path>
+          <path d="M4.93 4.93l1.41 1.41"></path>
+          <path d="M17.66 17.66l1.41 1.41"></path>
+          <path d="M2 12h2"></path>
+          <path d="M20 12h2"></path>
+          <path d="M6.34 17.66l-1.41 1.41"></path>
+          <path d="M19.07 4.93l-1.41 1.41"></path>
+        `;
+      }
+    });
+
+    // View Switching Logic for Left Panel
+    const sidebarNav = document.getElementById('sidebarNav');
+    const navItems = sidebarNav.querySelectorAll('.nav-item');
+    const panelViews = document.querySelectorAll('.panel-view');
+
+    navItems.forEach(item => {
+      item.addEventListener('click', () => {
+        // Deactivate active items
+        navItems.forEach(nav => nav.classList.remove('active'));
+        panelViews.forEach(view => view.classList.remove('active'));
+        
+        // Activate current item
+        item.classList.add('active');
+        const targetViewId = item.getAttribute('data-view');
+        document.getElementById(targetViewId).classList.add('active');
+      });
+    });
+
+    // Simulated Database for the dynamic tooltips
+    const postData = {
+      'post-1': { title: 'Local Farmers Market', meta: '9:00 AM - 1:00 PM • Oakwood Park' },
+      'post-2': { title: 'Suspicious Activity', meta: 'Reported 2h ago @ Maple Ave' },
+      'post-3': { title: 'Free Cozy Sofa', meta: 'Available now @ Pine Street' }
+    };
+
+    const feedCards = document.querySelectorAll('.post-card');
+    const mapPins = document.querySelectorAll('.map-pin-container');
+    const tooltip = document.getElementById('mapTooltip');
+    const tooltipTitle = document.getElementById('tooltipTitle');
+    const tooltipMeta = document.getElementById('tooltipMeta');
+
+    // 1. Hover Card -> Highlight Map Pin & Show Tooltip
+    feedCards.forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        const markerId = card.getAttribute('data-marker-id');
+        const marker = document.getElementById(markerId);
+        
+        // Highlight marker
+        marker.classList.add('active');
+        
+        // Populate and position tooltip
+        const postId = card.getAttribute('id');
+        tooltipTitle.textContent = postData[postId].title;
+        tooltipMeta.textContent = postData[postId].meta;
+        
+        // Move tooltip above target marker
+        const pinLeft = parseInt(marker.style.left);
+        const pinTop = parseInt(marker.style.top);
+        
+        tooltip.style.left = `${pinLeft}px`;
+        tooltip.style.top = `${pinTop}px`;
+        tooltip.classList.add('visible');
+      });
+
+      card.addEventListener('mouseleave', () => {
+        const markerId = card.getAttribute('data-marker-id');
+        const marker = document.getElementById(markerId);
+        
+        marker.classList.remove('active');
+        tooltip.classList.remove('visible');
+      });
+    });
+
+    // 2. Hover Map Pin -> Highlight Feed Card & Show Tooltip
+    mapPins.forEach(pin => {
+      pin.addEventListener('mouseenter', () => {
+        const postId = pin.getAttribute('data-post-id');
+        const card = document.getElementById(postId);
+        
+        // Highlight feed card
+        card.classList.add('active-hover');
+        pin.classList.add('active');
+        
+        // Tooltip
+        tooltipTitle.textContent = postData[postId].title;
+        tooltipMeta.textContent = postData[postId].meta;
+        
+        const pinLeft = parseInt(pin.style.left);
+        const pinTop = parseInt(pin.style.top);
+        
+        tooltip.style.left = `${pinLeft}px`;
+        tooltip.style.top = `${pinTop}px`;
+        tooltip.classList.add('visible');
+        
+        // Scroll card smoothly into view inside the feed panel
+        card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      });
+
+      pin.addEventListener('mouseleave', () => {
+        const postId = pin.getAttribute('data-post-id');
+        const card = document.getElementById(postId);
+        
+        card.classList.remove('active-hover');
+        pin.classList.remove('active');
+        tooltip.classList.remove('visible');
+      });
+    });
+  </script>
+
+</body>
+</html>
