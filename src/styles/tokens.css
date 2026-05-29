@@ -1,0 +1,58 @@
+:root {
+  --font-family: "Outfit", "Inter", system-ui, sans-serif;
+  --radius-panel: 24px;
+  --radius-card: 8px;
+  --radius-control: 10px;
+  --duration-fast: 160ms;
+  --duration-normal: 280ms;
+}
+
+:root[data-theme="light"] {
+  --bg-main: radial-gradient(circle at 0% 0%, #f3f8fa 0%, #eef5f8 100%);
+  --sidebar-bg: rgba(255, 255, 255, 0.45);
+  --glass-bg: rgba(255, 255, 255, 0.45);
+  --glass-border: rgba(255, 255, 255, 0.6);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+  --backdrop-blur: blur(16px);
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --surface-strong: rgba(255, 255, 255, 0.72);
+  --input-bg: rgba(255, 255, 255, 0.6);
+  --input-border: rgba(255, 255, 255, 0.8);
+  --primary-teal: hsl(172, 100%, 35%);
+  --primary-teal-glow: rgba(0, 178, 154, 0.18);
+  --color-safety: hsl(12, 95%, 55%);
+  --color-event: hsl(265, 85%, 60%);
+  --color-sale: hsl(40, 95%, 45%);
+  --color-general: hsl(185, 75%, 45%);
+  --map-water: #e0f2fe;
+  --map-land: #f1f5f9;
+  --map-road: #ffffff;
+  --map-park: #dcfce7;
+  --map-border: #cbd5e1;
+}
+
+:root[data-theme="dark"] {
+  --bg-main: radial-gradient(circle at 0% 0%, #0f172a 0%, #020617 100%);
+  --sidebar-bg: rgba(15, 23, 42, 0.4);
+  --glass-bg: rgba(15, 23, 42, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --backdrop-blur: blur(16px);
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --surface-strong: rgba(15, 23, 42, 0.82);
+  --input-bg: rgba(15, 23, 42, 0.7);
+  --input-border: rgba(255, 255, 255, 0.05);
+  --primary-teal: hsl(172, 100%, 45%);
+  --primary-teal-glow: rgba(0, 229, 198, 0.25);
+  --color-safety: hsl(355, 100%, 60%);
+  --color-event: hsl(272, 100%, 65%);
+  --color-sale: hsl(43, 100%, 50%);
+  --color-general: hsl(190, 100%, 48%);
+  --map-water: #0c1c30;
+  --map-land: #0b0f17;
+  --map-road: #1e293b;
+  --map-park: #062f1d;
+  --map-border: #1e293b;
+}
