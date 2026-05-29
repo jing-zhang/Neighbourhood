@@ -264,7 +264,7 @@ If this project remains outside git, record the completed task in this plan by c
 - Create: `src/lib/dom.js`
 - Create: `src/main.js`
 
-- [ ] **Step 1: Create post data**
+- [x] **Step 1: Create post data**
 
 Create `src/data/posts.js`:
 
@@ -332,7 +332,7 @@ export const seedPosts = [
 ];
 ```
 
-- [ ] **Step 2: Create DOM helpers**
+- [x] **Step 2: Create DOM helpers**
 
 Create `src/lib/dom.js`:
 
@@ -377,7 +377,7 @@ export function createElement(tag, className, text = "") {
 }
 ```
 
-- [ ] **Step 3: Create state store**
+- [x] **Step 3: Create state store**
 
 Create `src/lib/state.js`:
 
@@ -436,7 +436,7 @@ export function filteredPosts() {
 }
 ```
 
-- [ ] **Step 4: Create bootstrap file**
+- [x] **Step 4: Create bootstrap file**
 
 Create `src/main.js`:
 
@@ -455,13 +455,13 @@ subscribe(render);
 render();
 ```
 
-- [ ] **Step 5: Verify module loading**
+- [x] **Step 5: Verify module loading**
 
 Open browser DevTools on `index.html`.
 
 Expected: console has no module import errors and `document.documentElement.dataset.theme` equals `"light"`.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add src/data/posts.js src/lib/dom.js src/lib/state.js src/main.js

@@ -29,10 +29,10 @@ A concise checklist with user stories in Given-When-Then format.
 - **Then** sample neighborhood posts should be visible immediately
 
 **Acceptance Criteria:**
-- [ ] Create `src/data/posts.js` with seed posts (Events, Safety, Free/Sale, General)
-- [ ] Create `src/lib/dom.js` with DOM helper functions (qs, qsa, createElement)
-- [ ] Create `src/lib/state.js` with state management (subscribe, setState, filteredPosts)
-- [ ] Create `src/main.js` as the entry point that bootstraps the app
+- [x] Create `src/data/posts.js` with seed posts (Events, Safety, Free/Sale, General)
+- [x] Create `src/lib/dom.js` with DOM helper functions (qs, qsa, createElement)
+- [x] Create `src/lib/state.js` with state management (subscribe, setState, filteredPosts)
+- [x] Create `src/main.js` as the entry point that bootstraps the app
 
 ---
 
