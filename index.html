@@ -11,6 +11,7 @@
   
   <link rel="stylesheet" href="./src/styles/tokens.css">
   <link rel="stylesheet" href="./src/styles/app.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
 
@@ -224,58 +225,9 @@
 
         </main>
 
-        <!-- Right Side Simulated Interactive Google Map -->
+        <!-- Right Side Interactive Map (Leaflet) -->
         <section class="map-panel" id="mapPanel">
-          
-          <svg class="map-svg-canvas" viewBox="0 0 600 500">
-            <!-- Simulated Map Landmasses and features -->
-            <rect class="map-landmass" width="600" height="500"></rect>
-            
-            <!-- Parks -->
-            <rect class="map-park-area" x="220" y="160" width="150" height="120" rx="8"></rect>
-            
-            <!-- Water Body -->
-            <path class="map-water-body" d="M 0,420 Q 150,440 280,390 T 600,430 L 600,500 L 0,500 Z"></path>
-            
-            <!-- Standard Roads Grid -->
-            <path class="map-road-network" d="M 50,0 L 50,500 M 150,0 L 150,500 M 420,0 L 420,500 M 520,0 L 520,500"></path>
-            <path class="map-road-network" d="M 0,80 L 600,80 M 0,220 L 600,220 M 0,340 L 600,340 M 0,420 L 600,420"></path>
-            <path class="map-highway" d="M 0,380 C 200,320 400,360 600,300"></path>
-            
-            <!-- Neighborhood Labels -->
-            <text class="map-text" x="40" y="60">FORTIS</text>
-            <text class="map-text" x="260" y="225">Oakwood Park</text>
-            <text class="map-text" x="460" y="320">HARKWOOD</text>
-          </svg>
-
-          <!-- Floating Interactive Map Pins matching cards -->
-          <div class="map-pin-container" id="marker-1" data-post-id="post-1" style="left: 310px; top: 220px;">
-            <div class="pin-pulse-aura" style="box-shadow: 0 0 0 0 var(--glow-event);"></div>
-            <svg class="pin-svg pin-event" width="30" height="42" viewBox="0 0 30 42">
-              <path d="M15 0C6.7 0 0 6.7 0 15c0 11.2 15 27 15 27s15-15.8 15-27C30 6.7 23.3 0 15 0zm0 21c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"/>
-            </svg>
-          </div>
-
-          <div class="map-pin-container" id="marker-2" data-post-id="post-2" style="left: 120px; top: 290px;">
-            <div class="pin-pulse-aura" style="box-shadow: 0 0 0 0 var(--glow-safety);"></div>
-            <svg class="pin-svg pin-safety" width="30" height="42" viewBox="0 0 30 42">
-              <path d="M15 0C6.7 0 0 6.7 0 15c0 11.2 15 27 15 27s15-15.8 15-27C30 6.7 23.3 0 15 0zm0 21c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"/>
-            </svg>
-          </div>
-
-          <div class="map-pin-container" id="marker-3" data-post-id="post-3" style="left: 480px; top: 120px;">
-            <div class="pin-pulse-aura" style="box-shadow: 0 0 0 0 var(--glow-sale);"></div>
-            <svg class="pin-svg pin-sale" width="30" height="42" viewBox="0 0 30 42">
-              <path d="M15 0C6.7 0 0 6.7 0 15c0 11.2 15 27 15 27s15-15.8 15-27C30 6.7 23.3 0 15 0zm0 21c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"/>
-            </svg>
-          </div>
-
-          <!-- Floating Tooltip popup -->
-          <div class="map-tooltip" id="mapTooltip">
-            <h3 class="tooltip-title" id="tooltipTitle">Farmers Market</h3>
-            <p class="tooltip-meta" id="tooltipMeta">9:00 AM @ Oakwood Park</p>
-          </div>
-
+          <div id="map-container" class="leaflet-map-container"></div>
         </section>
         
       </div>

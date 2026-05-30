@@ -46,11 +46,13 @@ A concise checklist with user stories in Given-When-Then format.
 - **Then** only matching posts should be displayed
 
 **Acceptance Criteria:**
-- [ ] Create `src/ui/feed.js` to render category filter chips and post cards
-- [ ] Create `src/ui/header.js` for search input and theme toggle controls
-- [ ] Connect search input to filter posts by title/summary
-- [ ] Connect category chips to filter by post type
-- [ ] Add hover state synchronization between feed cards and map pins
+- [x] Create `src/ui/feed.js` to render category filter chips and post cards
+- [x] Create `src/ui/header.js` for search input and theme toggle controls
+- [x] Connect search input to filter posts by title/summary
+- [x] Connect category chips to filter by post type
+- [⚠] Add hover state synchronization between feed cards and map pins
+  - *Deferred to Task 4: Map component doesn't exist yet*
+  - *Hover listeners already implemented in feed.js, waiting for map integration*
 
 ---
 
