@@ -855,3 +855,231 @@ body {
 .category-safety { background: var(--color-safety); box-shadow: 0 0 6px var(--glow-safety); }
 .category-sale { background: var(--color-sale); box-shadow: 0 0 6px var(--glow-sale); }
 .category-general { background: var(--color-general); box-shadow: 0 0 6px var(--glow-general); }
+
+/* ============================================
+   LEAFLET MAP STYLES
+   ============================================ */
+
+#map-container {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--map-land);
+}
+
+.leaflet-map-container {
+  width: 100%;
+  height: 100%;
+}
+
+/* Override Leaflet default styles for theming */
+:root[data-theme="light"] .leaflet-container {
+  background-color: var(--map-land);
+}
+
+:root[data-theme="dark"] .leaflet-container {
+  background-color: var(--map-land);
+}
+
+.leaflet-tile-pane {
+  filter: brightness(0.95);
+}
+
+:root[data-theme="dark"] .leaflet-tile-pane {
+  filter: brightness(0.6) contrast(1.1);
+}
+
+/* Map Controls */
+.leaflet-control-attribution {
+  background: rgba(255, 255, 255, 0.8);
+  font-size: 11px;
+}
+
+:root[data-theme="dark"] .leaflet-control-attribution {
+  background: rgba(15, 23, 42, 0.8);
+  color: var(--text-muted);
+}
+
+/* ============================================
+   CUSTOM MARKER STYLES
+   ============================================ */
+
+.map-marker-wrapper {
+  width: 32px !important;
+  height: 32px !important;
+}
+
+.map-pin-marker {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  transition: transform var(--duration-normal) ease;
+}
+
+.map-pin-marker:hover {
+  transform: scale(1.15);
+}
+
+.map-pin-marker.active {
+  animation: pulse-marker var(--duration-normal) ease-in-out;
+}
+
+.map-pin-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 3px solid white;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
+
+.map-pin-pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  transform: translate(-50%, -50%);
+  opacity: 0.6;
+  z-index: 1;
+}
+
+/* Category-specific pin colors */
+.pin-event .map-pin-dot {
+  background: var(--color-event);
+  color: var(--color-event);
+}
+
+.pin-safety .map-pin-dot {
+  background: var(--color-safety);
+  color: var(--color-safety);
+}
+
+.pin-sale .map-pin-dot {
+  background: var(--color-sale);
+  color: var(--color-sale);
+}
+
+.pin-general .map-pin-dot {
+  background: var(--color-general);
+  color: var(--color-general);
+}
+
+/* Pulse animation for active markers */
+@keyframes pulse-marker {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.map-pin-marker.active .map-pin-pulse {
+  animation: pulse-ring var(--duration-normal) ease-out infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.8);
+    opacity: 0;
+  }
+}
+
+/* ============================================
+   MAP POPUP STYLES
+   ============================================ */
+
+.map-popup-container.leaflet-popup {
+  margin-bottom: 16px;
+}
+
+.map-popup-container .leaflet-popup-content {
+  margin: 0;
+  padding: 0;
+  width: auto;
+  border-radius: 8px;
+}
+
+.map-popup {
+  padding: 12px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.map-popup h3 {
+  margin: 0 0 6px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.map-popup p {
+  margin: 0 0 8px 0;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.popup-category {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--surface-strong);
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.popup-category.category-event {
+  background: var(--color-event);
+}
+
+.popup-category.category-safety {
+  background: var(--color-safety);
+}
+
+.popup-category.category-sale {
+  background: var(--color-sale);
+}
+
+.popup-category.category-general {
+  background: var(--color-general);
+}
+
+/* ============================================
+   RESPONSIVE MAP ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 768px) {
+  .map-pin-marker {
+    width: 28px;
+    height: 28px;
+  }
+
+  .map-pin-dot {
+    width: 14px;
+    height: 14px;
+  }
+
+  .map-pin-pulse {
+    width: 20px;
+    height: 20px;
+  }
+}
