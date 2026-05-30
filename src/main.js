@@ -7,10 +7,10 @@ import { bindHeaderControls } from "./ui/header.js";
  * Renders all state-driven UI regions for the current app state.
  * @returns {void}
  */
-function render() {
+async function render() {
   document.documentElement.dataset.theme = state.theme;
   renderFeed();
-  renderMap();
+  await renderMap();
 }
 
 bindHeaderControls();
