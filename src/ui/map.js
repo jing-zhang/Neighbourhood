@@ -122,13 +122,21 @@ export async function renderMap() {
       setState({ activePostId: post.id });
     });
 
-    // Hover marker to show active state
+    // Hover marker to show active state and tooltip
     marker.on("mouseover", () => {
       setState({ hoveredPostId: post.id, activePostId: post.id });
+      // Open popup on hover with slight delay for better UX
+      setTimeout(() => {
+        if (state.hoveredPostId === post.id) {
+          marker.openPopup();
+        }
+      }, 300);
     });
 
     marker.on("mouseout", () => {
       setState({ hoveredPostId: null });
+      // Close popup when mouse leaves
+      marker.closePopup();
     });
   });
 
@@ -151,8 +159,18 @@ function updateMarkerStates() {
 
     if (isActive || isHovered) {
       markerEl.classList.add("active");
+      // Open popup when marker becomes active/hovered (e.g., from feed card hover)
+      if (isHovered) {
+        setTimeout(() => {
+          if (state.hoveredPostId === postId) {
+            marker.openPopup();
+          }
+        }, 300);
+      }
     } else {
       markerEl.classList.remove("active");
+      // Close popup when marker is no longer active/hovered
+      marker.closePopup();
     }
   });
 }

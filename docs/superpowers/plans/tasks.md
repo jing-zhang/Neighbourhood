@@ -64,12 +64,12 @@ A concise checklist with user stories in Given-When-Then format.
 - **Then** each post should appear as a color-coded pin on the map
 
 **Acceptance Criteria:**
-- [ ] Install Leaflet: `npm install leaflet`
-- [ ] Create `src/ui/map.js` to render Leaflet map with OpenStreetMap tiles
-- [ ] Add CSS for Leaflet map container and custom markers
-- [ ] Implement category-colored pins with pulse animation
-- [ ] Connect hover on feed cards to highlight corresponding map pin
-- [ ] Show tooltip preview when hovering pins
+- [x] Install Leaflet: `npm install leaflet`
+- [x] Create `src/ui/map.js` to render Leaflet map with OpenStreetMap tiles
+- [x] Add CSS for Leaflet map container and custom markers
+- [x] Implement category-colored pins with pulse animation
+- [x] Connect hover on feed cards to highlight corresponding map pin
+- [x] Show tooltip preview when hovering pins
 
 ---
 
