@@ -81,11 +81,11 @@ A concise checklist with user stories in Given-When-Then format.
 - **Then** the app should show posts relevant to that location
 
 **Acceptance Criteria:**
-- [ ] Create `src/lib/location.js` with geolocation API wrapper
-- [ ] Add "Locate Me" button in header to request browser location
-- [ ] Add manual neighborhood input field
-- [ ] Handle permission denied and unavailable errors gracefully
-- [ ] Update map center based on selected location
+- [x] Create `src/lib/location.js` with geolocation API wrapper
+- [x] Add "Locate Me" button in header to request browser location
+- [x] Add manual neighborhood input field
+- [x] Handle permission denied and unavailable errors gracefully
+- [x] Update map center based on selected location
 
 ---
 
@@ -97,11 +97,11 @@ A concise checklist with user stories in Given-When-Then format.
 - **Then** a new post should appear in the feed
 
 **Acceptance Criteria:**
-- [ ] Create `src/ui/modal.js` for the post creation form
-- [ ] Add modal CSS with glassmorphic styling
-- [ ] Implement form validation (title, category, summary required)
-- [ ] Wire up form submission to add post to state
-- [ ] Close modal and refresh feed after successful submission
+- [x] Create `src/ui/modal.js` for the post creation form
+- [x] Add modal CSS with glassmorphic styling
+- [x] Implement form validation (title, category, summary required)
+- [x] Wire up form submission to add post to state
+- [x] Close modal and refresh feed after successful submission
 
 ---
 
@@ -130,8 +130,9 @@ A concise checklist with user stories in Given-When-Then format.
 - **Then** I should have confidence that all features work correctly
 
 **Acceptance Criteria:**
-- [ ] Set up Vitest + jsdom + Playwright
-- [ ] Write unit tests for DOM helpers, state, and location modules
+- [x] Set up Vitest + jsdom
+- [x] Write unit tests for DOM helpers, state, location, header, and modal modules
+- [ ] Set up Playwright for browser smoke tests
 - [ ] Write integration tests for feed filtering, map sync, and modal flow
 - [ ] Write smoke tests for theme toggle, responsive layout, and hover sync
 
@@ -175,12 +176,12 @@ src/
 ```
 
 ### Key Features Checklist
-- [ ] Light/Dark theme toggle
-- [ ] Category filter chips (All, Events, Safety, Free/Sale, General)
-- [ ] Search posts by title/summary
-- [ ] Feed ↔ Map hover synchronization
-- [ ] Geolocation + manual neighborhood picker
-- [ ] Post creation modal
+- [x] Light/Dark theme toggle
+- [x] Category filter chips (All, Events, Safety, Free/Sale, General)
+- [x] Search posts by title/summary
+- [x] Feed ↔ Map hover synchronization
+- [x] Geolocation + manual neighborhood picker
+- [x] Post creation modal
 - [ ] Mobile feed/map toggle
 - [ ] Keyboard accessibility
 
