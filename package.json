@@ -5,7 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "python -m http.server 3000",
-    "test": "vitest",
+    "test": "vitest run",
+    "test:unit": "vitest run tests/unit",
+    "test:integration": "vitest run tests/integration",
+    "test:smoke": "playwright test tests/smoke",
+    "test:all": "vitest run && playwright test tests/smoke",
     "test:ui": "vitest --ui",
     "lint": "eslint src/ --ext .js",
     "format": "prettier --write src/"
@@ -14,10 +18,11 @@
     "leaflet": "^1.9.4"
   },
   "devDependencies": {
-    "vitest": "^1.0.0",
-    "jsdom": "^23.0.0",
+    "@playwright/test": "^1.61.0",
     "@testing-library/dom": "^9.3.4",
     "eslint": "^8.54.0",
-    "prettier": "^3.1.0"
+    "jsdom": "^23.0.0",
+    "prettier": "^3.1.0",
+    "vitest": "^1.0.0"
   }
 }

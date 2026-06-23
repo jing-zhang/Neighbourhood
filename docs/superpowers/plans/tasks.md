@@ -132,9 +132,9 @@ A concise checklist with user stories in Given-When-Then format.
 **Acceptance Criteria:**
 - [x] Set up Vitest + jsdom
 - [x] Write unit tests for DOM helpers, state, location, header, and modal modules
-- [ ] Set up Playwright for browser smoke tests
-- [ ] Write integration tests for feed filtering, map sync, and modal flow
-- [ ] Write smoke tests for theme toggle, responsive layout, and hover sync
+- [x] Set up Playwright for browser smoke tests
+- [x] Write integration tests for feed filtering, map sync, and modal flow
+- [x] Write smoke tests for theme toggle, responsive layout, and hover sync
 
 ---
 
