@@ -162,3 +162,16 @@ To kickstart and build the project in **web-first** mode, run the following:
    ```bash
    npx expo export --platform web
    ```
+
+---
+
+## Implementation Status
+
+The current project implementation is a **static web prototype** (Phase 1). Key milestones completed:
+
+- **Stack**: Vanilla JavaScript modules + CSS custom properties + Leaflet + OpenStreetMap
+- **Features**: Feed with category filters + search, Leaflet map with category pins and hover sync, geolocation + manual neighborhood picker, post creation modal, light/dark theme
+- **Responsive**: Split-panel on desktop, single-panel with Feed/Map toggle on mobile, 768px and 480px breakpoints
+- **Testing**: 59 tests across unit (37), integration (11), and browser smoke (11) layers via Vitest + Playwright
+
+The implementation plan in `docs/superpowers/plans/2026-05-26-neighborhoods-static-implementation.md` shows the full build process. Phase 2 would add Supabase backend (auth, real-time posts, spatial queries) — see `docs/superpowers/plans/2026-05-28-neighborhoods-supabase-integration.md`.

@@ -79,6 +79,20 @@
   transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
 }
 
+/* Accessibility: reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Keyboard focus indicator */
+:focus-visible {
+  outline: 2px solid var(--primary-teal);
+  outline-offset: 2px;
+}
+
 body {
   background: var(--bg-main);
   color: var(--text-main);

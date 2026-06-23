@@ -100,7 +100,24 @@ On hovering a feed card:
 - The corresponding map pin scales dynamically to `1.5x`.
 - A continuous CSS concentric pulsing keyframe `markerPulse` radiates outward beneath the active coordinate.
 
-### Hover Ripple & Pulse Animation
-On hovering a feed card:
-- The corresponding map pin scales dynamically to `1.5x`.
-- A continuous CSS concentric pulsing keyframe `markerPulse` radiates outward beneath the active coordinate.
+---
+
+## 4. Implementation Notes
+
+The first implementation pass targets a static web prototype with vanilla JavaScript modules and CSS custom properties. The map renderer uses Leaflet + OpenStreetMap tiles with custom category-colored markers and hover-sync animations.
+
+### Build Status
+
+| Layer | Status | Details |
+|-------|--------|---------|
+| Design tokens (light/dark) | ✅ Complete | `src/styles/tokens.css` |
+| App styles | ✅ Complete | `src/styles/app.css` |
+| Feed + filters | ✅ Complete | `src/ui/feed.js` |
+| Header controls | ✅ Complete | `src/ui/header.js` |
+| Leaflet map | ✅ Complete | `src/ui/map.js` |
+| Geolocation | ✅ Complete | `src/lib/location.js` |
+| Post modal | ✅ Complete | `src/ui/modal.js` |
+| Responsive mobile toggle | ✅ Complete | Breakpoints at 768px and 480px |
+| Unit tests (37) | ✅ Complete | Vitest + jsdom |
+| Integration tests (11) | ✅ Complete | Cross-module user flows |
+| Smoke tests (11) | ✅ Complete | Playwright + Chromium |

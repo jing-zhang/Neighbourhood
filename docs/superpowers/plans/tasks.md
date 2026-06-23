@@ -141,11 +141,13 @@ A concise checklist with user stories in Given-When-Then format.
 ### Task 9: Final Verification and Documentation
 
 **User Story:**
-- **Given** a complete implementation
-- **When** the app is tested for production use
-- **Then** it should meet accessibility and performance standards
-
 **Acceptance Criteria:**
+- [x] Verify all features work end-to-end (59 tests pass)
+- [x] Add accessibility: focus-visible indicator, prefers-reduced-motion
+- [x] Updated project documentation (spec + blueprint + tasks)
+
+---
+---
 - [ ] Verify all features work end-to-end
 - [ ] Check accessibility (keyboard navigation, screen readers)
 - [ ] Verify performance targets (FCP < 1.5s, LCP < 2.5s)
