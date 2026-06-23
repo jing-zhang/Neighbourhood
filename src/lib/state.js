@@ -39,6 +39,30 @@ export function setState(patch) {
 }
 
 /**
+ * Creates a new neighborhood post from form input and activates it in the UI.
+ * @param {{title: string, summary: string, category: string, author: string}} post User-entered post data.
+ * @returns {void}
+ */
+export function addPost(post) {
+  const nextPost = {
+    ...post,
+    id: `post-${Date.now()}`,
+    time: "Just now",
+    distance: "0.1 km",
+    reactions: 0,
+    comments: 0,
+    lat: state.location.center.lat + 0.001,
+    lng: state.location.center.lng - 0.001
+  };
+
+  setState({
+    posts: [nextPost, ...state.posts],
+    activePostId: nextPost.id,
+    modalOpen: false
+  });
+}
+
+/**
  * Returns posts matching the active category and text query.
  * @returns {Array<typeof seedPosts[number]>} Filtered posts.
  */

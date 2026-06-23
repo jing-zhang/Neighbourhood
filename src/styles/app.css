@@ -203,6 +203,42 @@ body {
   width: 100%;
 }
 
+.location-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.location-input {
+  min-width: 180px;
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-control);
+  background: var(--input-bg);
+  color: var(--text-main);
+  padding: 8px 10px;
+  font-size: 13px;
+}
+
+.icon-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-control);
+  background: var(--input-bg);
+  color: var(--text-main);
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
+}
+
+.icon-button:hover {
+  border-color: var(--primary-teal);
+  box-shadow: 0 0 0 3px var(--primary-teal-glow);
+}
+
 .header-actions {
   display: flex;
   align-items: center;
@@ -1068,6 +1104,20 @@ body {
    ============================================ */
 
 @media (max-width: 768px) {
+  .app-header {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .global-search,
+  .location-control,
+  .location-input {
+    width: 100%;
+    min-width: 0;
+  }
+
   .map-pin-marker {
     width: 28px;
     height: 28px;
@@ -1081,5 +1131,97 @@ body {
   .map-pin-pulse {
     width: 20px;
     height: 20px;
+  }
+}
+
+/* ============================================
+   POST CREATION MODAL
+   ============================================ */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(2, 6, 23, 0.48);
+  backdrop-filter: blur(4px);
+  z-index: 50;
+}
+
+.post-modal {
+  width: min(440px, calc(100vw - 32px));
+  display: grid;
+  gap: 14px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-panel);
+  background: var(--surface-strong);
+  color: var(--text-main);
+  padding: 24px;
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: var(--backdrop-blur);
+  animation: modalSlideIn var(--duration-normal) ease-out;
+}
+
+.post-modal header,
+.post-modal footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.post-modal header h2 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.post-modal label {
+  display: grid;
+  gap: 6px;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.post-modal input,
+.post-modal textarea,
+.post-modal select {
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-control);
+  background: var(--input-bg);
+  color: var(--text-main);
+  padding: 10px 12px;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
+}
+
+.post-modal input:focus,
+.post-modal textarea:focus,
+.post-modal select:focus {
+  border-color: var(--primary-teal);
+  box-shadow: 0 0 0 3px var(--primary-teal-glow);
+}
+
+.post-modal textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .post-modal {
+    animation: none;
   }
 }
