@@ -115,10 +115,10 @@ A concise checklist with user stories in Given-When-Then format.
 - **Then** the layout should adapt appropriately for the screen size
 
 **Acceptance Criteria:**
-- [ ] Add viewport breakpoint CSS (768px, 480px)
-- [ ] Create mobile segmented control (Feed | Map)
-- [ ] Stack layout vertically on mobile
-- [ ] Ensure touch interactions work properly
+- [x] Add viewport breakpoint CSS (768px, 480px)
+- [x] Create mobile segmented control (Feed | Map)
+- [x] Stack layout vertically on mobile
+- [x] Wire mobile view state toggle via header + data attribute
 
 ---
 
@@ -182,7 +182,7 @@ src/
 - [x] Feed ↔ Map hover synchronization
 - [x] Geolocation + manual neighborhood picker
 - [x] Post creation modal
-- [ ] Mobile feed/map toggle
+- [x] Mobile feed/map toggle
 - [ ] Keyboard accessibility
 
 ---

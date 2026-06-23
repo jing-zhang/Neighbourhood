@@ -13,6 +13,15 @@ async function render() {
   renderFeed();
   await renderMap();
   renderModal();
+
+  // Update mobile view toggle
+  const mainContent = document.querySelector("[data-main-content]");
+  if (mainContent) {
+    mainContent.setAttribute("data-mobile-view", state.mobileView);
+  }
+  document.querySelectorAll("[data-view]").forEach((button) => {
+    button.classList.toggle("active", button.dataset.view === state.mobileView);
+  });
 }
 
 bindHeaderControls();

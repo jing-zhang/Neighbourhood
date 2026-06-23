@@ -108,10 +108,15 @@
             <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&q=80" alt="User Profile">
           </div>
         </div>
+
+        <div class="view-toggle" data-view-toggle aria-label="Mobile view selector">
+          <button type="button" data-view="feed" class="active">Feed</button>
+          <button type="button" data-view="map">Map</button>
+        </div>
       </header>
 
       <!-- Grid view split panels -->
-      <div class="split-canvas">
+      <div class="split-canvas" data-main-content>
         
         <!-- Left Side Pane Container supporting multiple tab contents -->
         <main class="feed-panel" id="leftPanel">

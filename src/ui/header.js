@@ -47,4 +47,10 @@ export function bindHeaderControls() {
       qs("[data-location-input]").value = state.location.label;
     }
   });
+
+  document.querySelectorAll("[data-view]").forEach((button) => {
+    button.addEventListener("click", () => {
+      setState({ mobileView: button.dataset.view });
+    });
+  });
 }
