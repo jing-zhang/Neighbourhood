@@ -90,10 +90,11 @@
 - Task 2 (Seed Data/State): ✅ **COMPLETED** - Depends on Task 1
 - Task 3 (Feed/Header): ✅ **COMPLETED** - Depends on Task 2
 - Task 4 (Map Canvas): ✅ **COMPLETED** - Depends on Task 2
+- Task 5 (Geolocation): ✅ **COMPLETED** - Depends on Task 2 and Task 3
+- Task 6 (Post Modal): ✅ **COMPLETED** - Depends on Task 2 and Task 3
 
 **Ready for Implementation:**
-- Task 5 (Geolocation): 🔄 **READY** - Depends on Task 2 and Task 3
-- Task 6 (Post Modal): ⏳ **PENDING** - Depends on Task 2 and Task 3
+- Task 7 (Mobile Toggle): 🔄 **READY** - Depends on Task 3, Task 4, Task 5
 
 ## Code Quality Requirements
 
@@ -937,7 +938,7 @@ git commit -m "feat: add Leaflet map with OpenStreetMap tiles, category pins, pu
 - Modify: `src/main.js`
 - Modify: `src/styles/app.css`
 
-- [ ] **Step 1: Add location controls**
+- [x] **Step 1: Add location controls**
 
 Add this markup to the header near search:
 
@@ -948,7 +949,7 @@ Add this markup to the header near search:
 </div>
 ```
 
-- [ ] **Step 2: Create location module**
+- [x] **Step 2: Create location module**
 
 Create `src/lib/location.js`:
 
@@ -988,7 +989,7 @@ export function labelForCoordinates(coords) {
 }
 ```
 
-- [ ] **Step 3: Wire location controls**
+- [x] **Step 3: Wire location controls**
 
 Replace `src/ui/header.js` with:
 
@@ -1034,7 +1035,7 @@ export function bindHeaderControls() {
 }
 ```
 
-- [ ] **Step 4: Add location styles**
+- [x] **Step 4: Add location styles**
 
 Append to `src/styles/app.css`:
 
@@ -1064,7 +1065,7 @@ Append to `src/styles/app.css`:
 }
 ```
 
-- [ ] **Step 5: Verify geolocation states**
+- [x] **Step 5: Verify geolocation states**
 
 Open `index.html` in a browser.
 
@@ -1073,7 +1074,7 @@ Expected:
 - Clicking `Locate` prompts for browser location when supported.
 - Denying permission keeps the manual neighborhood and does not throw console errors.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add index.html src/lib/location.js src/ui/header.js src/styles/app.css
